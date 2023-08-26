@@ -1,0 +1,122 @@
+.techs{
+    padding: 100px 70px;
+    background-color: #272727;
+    color: #FFF;
+}
+
+.techs__subtitle{
+    margin: 0;
+    padding: 0 0 23px;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.88px;
+    border-bottom: 1px solid #DADADA;
+}
+
+.techs__title{
+    width: 600px;
+    margin: 90px auto 26px;
+    text-align: center;
+    font-size: 50px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 58px;
+    letter-spacing: -2px;
+}
+
+.techs__text{
+    width: 460px;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: -0.56px;
+}
+
+.techs__progress{
+    display: flex;
+    justify-content: space-between;
+    width: 690px;
+    margin: 100px auto 0;
+}
+
+.techs__caption {
+    width: 90px;
+    margin: 0;
+    padding: 21px 0;
+    border-radius: 10px;
+    background-color: #303030;
+    text-align: center;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.56px;
+}
+
+@media screen and (max-width: 900px){
+    .techs{
+        padding: 90px 50px;
+    }
+
+    .techs__title{
+        margin: 80px auto 22px;
+    }
+
+    .techs__text{
+        font-size: 12px;
+        line-height: 18px;
+        letter-spacing: -0.48px;
+    }
+
+    .techs__progress{
+        width: 648px;
+        margin: 83px auto 0;
+    }
+
+    .techs__caption{
+        width: 84px;
+        font-size: 12px;
+        letter-spacing: -0.48px;
+    }
+}
+
+@media screen and (max-width: 560px){
+    .techs{
+        padding: 70px 18px;
+    }
+
+    .techs__subtitle{
+        padding: 0 0 28px;
+        font-size: 18px;
+        letter-spacing: -0.72px;
+        border-bottom: 1px solid #DADADA;
+    }
+
+    .techs__title{
+        width: 292px;
+        margin: 60px auto 24;
+        font-size: 30px;
+        line-height: normal;
+        letter-spacing: -1.2px;
+    }
+
+    .techs__text{
+        width: 292px;
+        font-size: 11px;
+        line-height: 16px;
+        letter-spacing: -0.44px;
+    }
+
+    .techs__progress{
+        width: 178px;
+        display: grid;
+        grid-template-columns: repeat(2, 84px);
+        gap: 10px;
+        margin: 50px auto 0;
+    }
+}
