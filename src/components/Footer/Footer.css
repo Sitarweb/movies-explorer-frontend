@@ -1,5 +1,5 @@
 .footer{
-    padding: 79px 70px 0;
+    padding: 79px 70px 20px;
     background-color: #202020;
 }
 
@@ -18,11 +18,13 @@
 .footer__info{
     display: flex;
     justify-content: space-between;
-    margin-top: 30px;
+    margin-top: 20px;
+    padding-top: 18px;
     border-top: 1px solid #424242;
 }
 
 .footer__year{
+    margin: 0;
     color: #FFF;
     font-feature-settings: 'clig' off, 'liga' off;
     font-size: 13px;
@@ -35,7 +37,9 @@
     width: 182px;
     display: flex;
     justify-content: space-between;
-    padding-top: 13px;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
 }
 
 .footer__link{
@@ -57,7 +61,7 @@
 
 @media screen and (max-width: 900px){
     .footer{
-        padding: 79px 30px 0;
+        padding: 79px 30px 20px;
     }
 
     .footer__info{
@@ -67,7 +71,7 @@
 
 @media screen and (max-width: 560px){
     .footer{
-        padding: 79px 10px 0;
+        padding: 79px 10px 20px;
     }
 
     .footer__subtitle{
@@ -92,12 +96,15 @@
         padding-top: 30px;
     }
 
-    .footer__link{
-        font-size: 12px;
+    .footer__item{
         text-align: center;
     }
 
-    .footer__link:last-child{
-        margin-top: 12px;
+    .footer__item:last-child{
+        margin-top: 7px;
+    }
+
+    .footer__link{
+        font-size: 12px;
     }
 }

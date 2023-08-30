@@ -29,6 +29,11 @@
     width: 24px;
     height: 24px;
     background-color: transparent;
+    transition: opacity .5s linear;
+}
+
+.moviesCard__heart-button:hover{
+    opacity: .8;
     cursor: pointer;
 }
 

@@ -1,10 +1,11 @@
 .profile{
-    padding: 74px 435px 40px;
+    padding: 74px 0 70px;
     background-color: #202020;
 }
 
 .profile__title{
-    margin: 0;
+    max-width: 204px;
+    margin: 0 auto;
     color: #FFF;
     text-align: center;
     font-size: 24px;
@@ -14,7 +15,8 @@
 }
 
 .profile__form{
-    margin-top: 123px;
+    max-width: 410px;
+    margin: 123px auto 0;
     display: flex;
     flex-direction: column;
 }
@@ -35,7 +37,6 @@
 }
 
 .profile__input{
-    outline: none;
     border: none;
     color: #FFF;
     text-align: right;
@@ -44,6 +45,11 @@
     font-weight: 400;
     line-height: normal;
     background-color: transparent;
+}
+
+.profile__input:focus{
+    outline: none;
+    border-bottom: 1px solid #4285F4;
 }
 
 .profile__error{
@@ -56,8 +62,11 @@
     line-height: normal;
 }
 
-.profile__text{
+.profile__button{
+    height: 16px;
     margin: 203px 0 0;
+    border: none;
+    background-color: transparent;
     color: #FFF;
     text-align: center;
     font-size: 13px;
@@ -67,8 +76,8 @@
     transition: opacity .5s linear;
 }
 
-.profile__text:hover{
-    opacity: .7;
+.profile__button:hover{
+    opacity: .8;
     cursor: pointer;
 }
 
@@ -91,14 +100,14 @@
 
 @media screen and (max-width: 900px){
     .profile{
-        padding: 236px 179px 269px;
+        padding: 236px 0 269px;
     }
 
     .profile__form{
         margin-top: 96px;
     }
 
-    .profile__text{
+    .profile__button{
         margin: 193px 0 0;
     }
 }
@@ -112,7 +121,8 @@
         margin-top: 80px;
     }
 
-    .profile__text{
+    .profile__button{
+        height: 15px;
         margin: 362px 0 0;
         font-size: 12px;
     }

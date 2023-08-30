@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import image from '../../../images/movieCard.jpg';
 
-function MoviesCard({}) {
+function MoviesCard({ movieData }) {
 
   const { pathname } = useLocation();
 
@@ -11,16 +11,16 @@ function MoviesCard({}) {
 
   return (
     <li className='moviesCard'>
-      <img src={image} alt='изображение' />
+      <img src={image} alt={`${movieData.nameRU}`} />
       <div className="moviesCard__text">
-        <h3 className="moviesCard__title">33 слова о дизайне</h3>
+        <h2 className="moviesCard__title">{movieData.nameRU}</h2>
         <button
           className={`moviesCard__heart-button ${toggle ? 'moviesCard__heart-button-red' : ''} ${pathname === '/saved-movies' ? 'moviesCard__heart-button-saved' : ''}`}
           type="button"
           onClick={handleLike}
         />
       </div>
-      <p className='moviesCard__duration'>1ч42м</p>
+      <p className='moviesCard__duration'>{movieData.duration}</p>
     </li >
   );
 }

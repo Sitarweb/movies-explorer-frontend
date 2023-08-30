@@ -21,9 +21,12 @@
     margin-top: 66px;
 }
 
+.aboutMe__bio{
+    max-width: 600px;
+}
+
 .aboutMe__name{
     margin: 0;
-    width: 600px;
     font-size: 50px;
     font-style: normal;
     font-weight: 400;
@@ -33,7 +36,6 @@
 
 .aboutMe__work{
     margin: 18px 0 26px;
-    width: 600px;
     font-feature-settings: 'clig' off, 'liga' off;
     font-size: 18px;
     font-style: normal;
@@ -43,7 +45,6 @@
 
 .aboutMe__description{
     margin: 0 0 99px;
-    width: 600px;
     font-feature-settings: 'clig' off, 'liga' off;
     font-size: 14px;
     font-style: normal;
@@ -75,22 +76,23 @@
         padding: 90px 50px 91px;
     }
 
+    .aboutMe__bio{
+        max-width: 364px;
+    }
+
     .aboutMe__name{
-        width: 348px;
         font-size: 40px;
         line-height: 40px;
         letter-spacing: -1.6px;
     }
 
     .aboutMe__work{
-        width: 348px;
         margin: 16px 0 20px;
         font-size: 12px;
         line-height: 18px;
     }
 
     .aboutMe__description{
-        width: 364px;
         margin: 0 0 87px;
         font-size: 12px;
         line-height: 18px;
@@ -118,23 +120,24 @@
         margin-top: 60px;
     }
 
+    .aboutMe__bio{
+        max-width: 292px;
+    }
+
     .aboutMe__name{
         margin-top: 40px;
-        width: 292px;
         font-size: 30px;
         line-height: normal;
         letter-spacing: -1.2px;
     }
 
     .aboutMe__work{
-        width: 292px;
         margin: 20px 0;
         font-size: 11px;
         line-height: 16px;
     }
 
     .aboutMe__description{
-        width: 292px;
         margin: 0 0 40px;
         font-size: 11px;
         line-height: 16px;

@@ -16,10 +16,12 @@
 }
 
 .aboutProject__plan{
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(4, auto);
-    margin-top: 70px;
+    display: flex;
+    margin-top: 67px;
+}
+
+.aboutProject__box:nth-child(2){
+    padding-left: 50px;
 }
 
 .aboutProject__subtitle{
@@ -32,7 +34,6 @@
 }
 
 .aboutProject__text{
-    width: 550px;
     margin: 26px 0 0;
     font-size: 14px;
     font-style: normal;
@@ -81,8 +82,15 @@
         padding: 90px 50px;
     }
 
+    .aboutProject__plan{
+        grid-template-columns: repeat(2, 319px);
+    }
+
+    .aboutProject__box:nth-child(2){
+        padding-left: 40px;
+    }
+
     .aboutProject__text{
-        width: 319px;
         margin: 22px 0 0;
         font-size: 12px;
         line-height: 18px;
@@ -123,6 +131,7 @@
 
     .aboutProject__box:last-child{
         padding-top: 56px;
+        padding-left: 0;
     }
 
     .aboutProject__subtitle{

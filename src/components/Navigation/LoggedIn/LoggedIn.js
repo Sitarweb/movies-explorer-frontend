@@ -8,8 +8,10 @@ function LoggedIn({}) {
 
     return (
         <nav className='loggedIn'>
-            <Link className='loggedIn__movies' to='/movies'>Фильмы</Link>
-            <Link className='loggedIn__movies' to='/saved-movies'>Сохранённые фильмы</Link>
+            <div className='loggedIn__movies'>
+                <Link className='loggedIn__movie' to='/movies'>Фильмы</Link>
+                <Link className='loggedIn__movie' to='/saved-movies'>Сохранённые фильмы</Link>
+            </div>
             <Link className='loggedIn__account' to='/profile'>
                 Аккаунт
                 <img src={loggedIn} alt='Aккаунт' className={`loggedIn__img ${pathname === '/' ? '' : 'loggedIn__img-main'}`} />

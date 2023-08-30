@@ -1,4 +1,6 @@
 .filterCheckbox{
+    width: 196px;
+    margin-left: 30px;
     display: flex;
     align-items: center;
     border-left: 1px solid #424242;
@@ -7,11 +9,16 @@
     font-style: normal;
     font-weight: 400;
     line-height: 18px;
+    transition: opacity .5s ease-in-out;
+}
+
+.filterCheckbox:hover{
+    opacity: .7;
+    cursor: pointer;
 }
 
 .filterCheckbox__group{
     position: relative;
-    cursor: pointer;
 }
 
 .filterCheckbox__input{
@@ -50,6 +57,11 @@
 }
 
 @media screen and (max-width: 900px) {
+    .filterCheckbox{
+        width: 187px;
+        margin-left: 19px;
+    }
+
     .filterCheckbox__span{
         margin: 0 15px 0 19px;
     }
@@ -57,12 +69,13 @@
 
 @media screen and (max-width: 560px) {
     .filterCheckbox {
-        width: 100%;
+        width: 167px;
+        margin: 0 auto;
         padding-top: 45px;
         border: none;
     }
 
     .filterCheckbox__span{
-        margin: 0 13px 0 76px;
+        margin: 0 13px 0 0;
     }
 }

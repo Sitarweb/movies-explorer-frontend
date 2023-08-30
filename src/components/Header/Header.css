@@ -6,10 +6,6 @@
     height: 74px;
 }
 
-.header_auth{
-    justify-content: normal;
-}
-
 .header__main{
     background-color: #202020;
 }
@@ -70,10 +66,6 @@
 @media screen and (max-width: 900px){
     .header{
         padding: 0 30px;
-    }
-
-    .header_auth{
-        justify-content: space-between;
     }
 }
 

@@ -12,7 +12,7 @@ import NotFound from "../NotFound/NotFound";
 
 function App() {
 
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(true);
 
   return (
     <div className="app">
