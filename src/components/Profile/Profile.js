@@ -33,7 +33,7 @@ function Profile({}) {
             />
           </label>
           <span className='profile__error'></span>
-          <button className='profile__button'>Редактировать</button>
+          <button className='profile__button' type='button'>Редактировать</button>
           <Link className='profile__link' to='/'>Выйти из аккаунта</Link>
         </form>
       </section>

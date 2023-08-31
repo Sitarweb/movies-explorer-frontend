@@ -8,6 +8,7 @@ function FilterCheckbox({onChange}) {
         <input
           type='checkbox'
           className='filterCheckbox__input'
+          placeholder=''
           onChange={onChange}
         />
         <span className='filterCheckbox__span' />
