@@ -1,6 +1,6 @@
 import React from 'react';
 
-function FilterCheckbox({onChange}) {
+function FilterCheckbox({ setFilter }) {
 
   return (
     <label className='filterCheckbox'>
@@ -9,7 +9,7 @@ function FilterCheckbox({onChange}) {
           type='checkbox'
           className='filterCheckbox__input'
           placeholder=''
-          onChange={onChange}
+          onChange={(event) => setFilter(event.target.checked)}
         />
         <span className='filterCheckbox__span' />
       </div>

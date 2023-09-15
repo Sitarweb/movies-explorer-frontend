@@ -1,9 +1,13 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
-function SearchForm({}) {
+function SearchForm({ setSearchKeyword, setFilter }) {
 
-  const [toggle, setToggle] = useState(false);
+  const [value, setValue] = useState('');
+
+  function handleSubmit() {
+    setSearchKeyword(value);
+  }
 
   return (
     <section className='searchForm'>
@@ -14,11 +18,12 @@ function SearchForm({}) {
             type='text'
             name='movietitle'
             placeholder='Фильм'
+            onChange={(evt) => setValue(evt.target.value)}
             required
           />
-          <button className={`searchForm__button `} type='submit'>Найти</button>
+          <button className={`searchForm__button`} type='button' onClick={handleSubmit}>Найти</button>
         </label>
-        <FilterCheckbox onChange={(event) => setToggle(event.target.checked)} />
+        <FilterCheckbox setFilter={setFilter} />
       </form>
     </section>
   );

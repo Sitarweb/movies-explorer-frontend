@@ -25,11 +25,11 @@ body {
 @import url(./components/Movies/FilterCheckbox/FilterCheckbox.css);
 @import url(./components/Movies/MoviesCardList/MoviesCardList.css);
 @import url(./components/Movies/MoviesCard/MoviesCard.css);
-@import url(./components/Movies/Preloader/Preloader.css);
 @import url(./components/Profile/Profile.css);
 @import url(./components/Register/Register.css);
 @import url(./components/Login/Login.css);
 @import url(./components/NotFound/NotFound.css);
 @import url(./components/Navigation/Burger/Burger.css);
 @import url(./components/Navigation/LoggedIn/LoggedIn.css);
-@import url(./components/Navigation/SideBar/SideBar.css);
+@import url(./components/SideBar/SideBar.css);
+@import url(./components/Preloader/Preloader.css);
