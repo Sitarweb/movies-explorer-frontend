@@ -6,3 +6,4 @@ Movies-explorer-frontend — это заключительный проект-с
 ## Ссылки:
 - Frontend https://semeontarasenko.nomoreparties.co
 - Адрес репозитория https://github.com/Sitarweb/movies-explorer-frontend
+- Pull requests https://github.com/Sitarweb/movies-explorer-frontend/pull/3
