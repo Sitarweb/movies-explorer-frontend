@@ -1,4 +1,4 @@
-import { OUR_URL } from '../constants/constants';
+import { EXTERNAL_URL, OUR_URL } from '../constants/constants';
 
 class MainApi {
     constructor(config) {
@@ -55,11 +55,11 @@ class MainApi {
                 duration: data.duration,
                 year: data.year,
                 description: data.description,
-                image: `https://api.nomoreparties.co${data.image.url}`,
+                image: `${EXTERNAL_URL}${data.image.url}`,
                 trailerLink: data.trailerLink,
                 nameRU: data.nameRU,
                 nameEN: data.nameEN,
-                thumbnail: `https://api.nomoreparties.co${data.image.formats.thumbnail.url}`,
+                thumbnail: `${EXTERNAL_URL}${data.image.formats.thumbnail.url}`,
                 movieId: data.id
             })
         });

@@ -13,7 +13,7 @@ function MoviesCardList({ moviesData, savedMovies, onSaveMovie, onDeleteMovie, a
           moviesData?.slice(0, amountToShow).map((movieData) => {
             return (
               <MoviesCard
-                key={movieData.id ? movieData.id : movieData._id}
+                key={movieData.id}
                 movieData={movieData}
                 savedMovies={savedMovies}
                 onSaveMovie={onSaveMovie}
@@ -23,7 +23,13 @@ function MoviesCardList({ moviesData, savedMovies, onSaveMovie, onDeleteMovie, a
           })
         }
       </ul>
-      <button className={`moviesCardList__button ${pathname === '/saved-movies' ? 'moviesCardList__button-saved' : ''}`} type='button' onClick={onClick}>Ещё</button>
+      {
+        moviesData.length === 0 ? (
+          <></>
+        ) : (
+          <button className={`moviesCardList__button ${pathname === '/saved-movies' ? 'moviesCardList__button-saved' : ''}`} type='button' onClick={onClick}>Ещё</button>
+        )
+      }
     </section>
   );
 }

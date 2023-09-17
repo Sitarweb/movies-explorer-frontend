@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
 import SearchForm from '../Movies/SearchForm/SearchForm';
 import MoviesCardList from '../Movies/MoviesCardList/MoviesCardList';
-import { useWindowSize } from '../../utils/Utils';
-import { TABLET_WIDTH, MOBILE_WIDTH, DESKTOP_AMOUNT, TABLET_AMOUNT, MOBILE_AMOUNT, SHORTS_DURATION } from '../../constants/constants';
+import { NOTFOUND_ERROR, SHORTS_DURATION } from '../../constants/constants';
 
 function SavedMovies({ savedMovies, onDeleteMovie }) {
 
@@ -10,30 +9,18 @@ function SavedMovies({ savedMovies, onDeleteMovie }) {
   const [isFilter, setFilter] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
   const [filteredMovies, setFilteredMovies] = useState([]);
-  const [initialRenderMovies, setInitialRenderMovies] = useState({amountToShow: 0, amountToAdd: 0});
-  const { width } = useWindowSize();
 
   useEffect(() => {
     handleSearchMovies();
     setFilteredMovies(handleFilter(searchResults));
   }, [searchKeyword, isFilter]);
 
-  useEffect(() => {
-    if( width > TABLET_WIDTH) {
-      setInitialRenderMovies(DESKTOP_AMOUNT);
-    } else if( width >= MOBILE_WIDTH) {
-      setInitialRenderMovies(TABLET_AMOUNT);
-    } else {
-      setInitialRenderMovies(MOBILE_AMOUNT);
-    }
-  }, [width]);
-
   function handleSearchMovies() { // Ищет фильмы
     setSearchResults([]);
     if (searchKeyword.length > 0) {
       const searchResults = handleSearch(savedMovies, searchKeyword);
       if (searchResults.length === 0) {
-        console.log('По запросу ничего не найдено');
+        console.log(NOTFOUND_ERROR);
       } else {
         setSearchResults(searchResults);
       }
@@ -54,10 +41,6 @@ function SavedMovies({ savedMovies, onDeleteMovie }) {
     });
   }
 
-  function handleMoreClick() {
-    setInitialRenderMovies({amountToShow: initialRenderMovies.amountToShow + initialRenderMovies.amountToAdd, amountToAdd: initialRenderMovies.amountToAdd});
-  }
-
   return (
     <main className='savedMovies'>
       <SearchForm
@@ -65,11 +48,9 @@ function SavedMovies({ savedMovies, onDeleteMovie }) {
         setFilter={setFilter}
       />
       <MoviesCardList
-        moviesData={isFilter ? filteredMovies : savedMovies}
+        moviesData={isFilter ? filteredMovies : searchResults}
         savedMovies={savedMovies}
         onDeleteMovie={onDeleteMovie}
-        limit={initialRenderMovies.amountToShow}
-        onClick={handleMoreClick}
       />
     </main>
   );

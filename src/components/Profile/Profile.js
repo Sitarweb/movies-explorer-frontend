@@ -2,7 +2,7 @@ import { useContext, useEffect } from 'react';
 import useValidation from "../../utils/Validation";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
 
-function Profile({ signOut, onUpdateUser, isEditing, onEditing }) {
+function Profile({ signOut, onUpdateUser, isEditing, onEditing, errorMessage }) {
 
   const {inputValue, errors, isValid, handleChange, resetValidation} = useValidation();
   const currentUser = useContext(CurrentUserContext);
@@ -54,12 +54,12 @@ function Profile({ signOut, onUpdateUser, isEditing, onEditing }) {
           {
             !isEditing ? (
               <>
+                <span className='profile__errorMessage'>{errorMessage}</span>
                 <button className='profile__button' type='button' onClick={onEditing}>Редактировать</button>
                 <button className='profile__signout' type='button' onClick={signOut}>Выйти из аккаунта</button>
               </>
             ) : (
               <>
-                <span className='profile__errorMessage'></span>
                 <button className={`profile__submit-button ${isValid ? '' : 'profile__submit-button_disable'} `} type='submit' disabled={!isValid} >
                   Сохранить
                 </button>

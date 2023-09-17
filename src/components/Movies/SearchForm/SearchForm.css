@@ -1,5 +1,5 @@
 .searchForm {
-  padding: 70px;
+  padding: 70px 70px 38px;
   background-color: #202020;
 }
   
@@ -54,26 +54,40 @@
   transition: opacity .5s linear;
 }
 
-.searchForm__button:not(.searchForm__button_disabled):hover {
+.searchForm__button:not(.searchForm__button_disable):hover {
   opacity: .8;
   cursor: pointer;
 }
 
-.searchForm__button_disabled {
+.searchForm__button_disable {
   background-color: #F8F8F8;
   color: #C2C2C2;
+}
+
+.searchForm__error {
+  display: block;
+  height: 12px;
+  margin: 20px 0 0;
+  text-overflow: ellipsis;
+  color: #EE3465;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 
 @media screen and (max-width: 900px) {
   .searchForm{
-    padding: 80px 30px 109px;
+    padding: 80px 30px 77px;
   }
 }
 
 @media screen and (max-width: 560px) {
   .searchForm{
-    padding: 80px 10px 45px;
+    padding: 80px 10px 13px;
   }
 
   .searchForm__form{

@@ -71,7 +71,7 @@
 
 .profile__errorMessage{
     height: 14px;
-    margin: 168px 0 23px;
+    margin: 162px 0 20px;
     color: #FF004C;
     text-align: center;
     font-size: 11px;
@@ -82,7 +82,7 @@
 
 .profile__button{
     height: 16px;
-    margin: 203px 0 0;
+    margin: 0;
     border: none;
     background-color: transparent;
     color: #FFF;
@@ -120,6 +120,7 @@
 }
 
 .profile__submit-button{
+    margin: 199px 0 0;
     height: 45px;
     border: none;
     background-color: #4285F4;
@@ -153,11 +154,11 @@
     }
 
     .profile__errorMessage{
-        margin: 158px 0 23px;
+        margin: 152px 0 20px;
     }
 
-    .profile__button{
-        margin: 193px 0 0;
+    .profile__submit-button{
+        margin: 189px 0 0;
     }
 }
 
@@ -171,12 +172,11 @@
     }
 
     .profile__errorMessage{
-        margin: 329px 0 20px;
+        margin: 321px 0 20px;
     }
 
     .profile__button{
         height: 15px;
-        margin: 362px 0 0;
         font-size: 12px;
     }
 
@@ -185,7 +185,7 @@
     }
 
     .profile__submit-button{
-        margin: 0;
+        margin: 356px 0 0;
         font-size: 12px;
     }
 }

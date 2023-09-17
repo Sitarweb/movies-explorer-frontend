@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import useValidation from "../../utils/Validation";
 
 
-function Login({ onLogin }) {
+function Login({ onLogin, errorMessage }) {
 
   const {inputValue, errors, isValid, handleChange, resetValidation} = useValidation();
 
@@ -51,6 +51,7 @@ function Login({ onLogin }) {
             />
           </label>
           <span className='signin__error'>{errors.password || ''}</span>
+          <span className='signin__errorMessage'>{errorMessage}</span>
           <button className={`signin__submit-button ${isValid ? '' : 'signin__submit-button_disable'}`} type='submit' disabled={!isValid}>
             Войти
           </button>

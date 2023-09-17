@@ -28,7 +28,6 @@ class MoviesApi {
 const moviesApi = new MoviesApi({
     url: `${EXTERNAL_URL}/beatfilm-movies`,
     headers: {
-        authorization: localStorage.getItem('jwt'),
         'Content-Type': 'application/json'
     }
 });

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import SearchForm from './SearchForm/SearchForm';
 import MoviesCardList from './MoviesCardList/MoviesCardList';
 import { useWindowSize } from '../../utils/Utils';
-import { TABLET_WIDTH, MOBILE_WIDTH, DESKTOP_AMOUNT, TABLET_AMOUNT, MOBILE_AMOUNT, SHORTS_DURATION } from '../../constants/constants';
+import { NOTFOUND_ERROR, TABLET_WIDTH, MOBILE_WIDTH, DESKTOP_AMOUNT, TABLET_AMOUNT, MOBILE_AMOUNT, SHORTS_DURATION } from '../../constants/constants';
 
 function Movies({ movies, savedMovies, onSaveMovie, onDeleteMovie }) {
 
@@ -21,7 +21,7 @@ function Movies({ movies, savedMovies, onSaveMovie, onDeleteMovie }) {
   useEffect(() => {
     if( width > TABLET_WIDTH) {
       setInitialRenderMovies(DESKTOP_AMOUNT);
-    } else if( width >= MOBILE_WIDTH) {
+    } else if(width >= MOBILE_WIDTH) {
       setInitialRenderMovies(TABLET_AMOUNT);
     } else {
       setInitialRenderMovies(MOBILE_AMOUNT);
@@ -33,7 +33,7 @@ function Movies({ movies, savedMovies, onSaveMovie, onDeleteMovie }) {
     if (searchKeyword.length > 0) {
       const searchResults = handleSearch(movies, searchKeyword);
       if (searchResults.length === 0) {
-        console.log('По запросу ничего не найдено');
+        console.log(NOTFOUND_ERROR);
       } else {
         setSearchResults(searchResults);
       }
@@ -65,7 +65,7 @@ function Movies({ movies, savedMovies, onSaveMovie, onDeleteMovie }) {
         setFilter={setFilter}
       />
       <MoviesCardList
-        moviesData={isFilter ? filteredMovies : movies}
+        moviesData={isFilter ? filteredMovies : searchResults}
         savedMovies={savedMovies}
         onSaveMovie={onSaveMovie}
         onDeleteMovie={onDeleteMovie}

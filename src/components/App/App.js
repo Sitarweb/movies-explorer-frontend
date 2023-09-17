@@ -76,7 +76,7 @@ function App() {
         })
         .catch(console.error);
     }
-  }, []); // ???
+  }, []);
 
   useEffect(() => {
     mainApi.getJwt();
@@ -105,6 +105,10 @@ function App() {
         })
         .catch(console.error);
     }
+  }, [navigate]);
+
+  useEffect(() => {
+    setErrorMessage('');
   }, [navigate]);
 
   function handleRegister({ name, email, password }) { // Регестрирует пользователя
@@ -151,6 +155,7 @@ function App() {
       .then(() => {
         setCurrentUser(data);
         handleSaveClick();
+        setErrorMessage('Данные успешно обновлены!');
       })
       .catch(() => {
         setErrorMessage(UPDATE_PROFILE_ERROR);
@@ -179,7 +184,7 @@ function App() {
   function handleDeleteMovie(movieId) { // Удаляет фильм из сохраненных
     setPreloaderPopupOpen(true);
     mainApi
-      .postNewMovie(movieId)
+      .deleteMovie(movieId)
       .then(() => {
         setSavedMovies((state) => state.filter((c) => c._id !== movieId));
       })
@@ -267,6 +272,7 @@ function App() {
                     onUpdateUser={handleUpdateUser}
                     isEditing={isEditing}
                     onEditing={handleEditingClick}
+                    errorMessage={errorMessage}
                 />
               </>
             }
@@ -286,7 +292,10 @@ function App() {
             path="/signin"
             element={
               <>
-                <Login onLogin={handleLogin} />
+                <Login
+                  onLogin={handleLogin}
+                  errorMessage={errorMessage}
+                />
               </>
             }
           />

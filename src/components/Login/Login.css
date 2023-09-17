@@ -79,9 +79,19 @@
     white-space: nowrap;
 }
 
+.signin__errorMessage{
+    height: 14px;
+    margin: 163px 0 20px;
+    color: #FF004C;
+    text-align: center;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
 .signin__submit-button{
     height: 45px;
-    margin-top: 197px;
     border: none;
     background-color: #4285F4;
     border-radius: 3px;
@@ -147,8 +157,11 @@
         text-align: center;
     }
 
+    .signin__errorMessage{
+        margin: 251px 0 20px;
+    }
+
     .signin__submit-button{
-        margin-top: 285px;
         font-size: 12px;
     }
 

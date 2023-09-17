@@ -6,23 +6,24 @@ import duration from '../../../utils/Utils';
 function MoviesCard({ movieData, savedMovies, onSaveMovie, onDeleteMovie }) {
 
   const { pathname } = useLocation();
-  const [isLike, setLike] = useState(false);
   const [isLikeImage, setLikeImage] = useState(false);
   const [cardId, setCardId] = useState('');
 
   function handleClick() {
-    setLike(savedMovies.some((item) => { // Проверяем лайкнут фильм или нет
-      if (item.movieId === movieData.movieId) { // Проверяем наличие св-ва movieId т.к оно есть только у залайканных
-        setCardId(item._id);
+    const isLike = savedMovies.some((movie) => {
+      if (movie.movieId === movieData.id || movie.movieId === movieData.movieId) {
+        setCardId(movie._id);
         return true;
-      } else return false;
-    }));
-    if (!isLike) {
-      onSaveMovie(movieData);
-      setLikeImage(true);
-    } else {
+      } else {
+        return false;
+      }
+    });
+    if (isLike) {
       onDeleteMovie(movieData._id ? movieData._id : cardId);
       setLikeImage(false);
+    } else {
+      onSaveMovie(movieData);
+      setLikeImage(true);
     }
   }
 

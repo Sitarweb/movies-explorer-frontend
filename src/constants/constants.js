@@ -22,5 +22,6 @@ const REGISTRATION_ERROR = 'Не удалось зарегистрировать
 const AUTHORIZATION_ERROR = 'Неправильный логин или пароль';
 const EMAIL_ERROR = 'Пользователь с таким email уже существует';
 const UPDATE_PROFILE_ERROR = 'Не удалось обновить данные профиля';
+const NOTFOUND_ERROR = 'По запросу ничего не найдено';
 
-export { REGISTRATION_ERROR, AUTHORIZATION_ERROR, EMAIL_ERROR, UPDATE_PROFILE_ERROR }
+export { REGISTRATION_ERROR, AUTHORIZATION_ERROR, EMAIL_ERROR, UPDATE_PROFILE_ERROR, NOTFOUND_ERROR }
