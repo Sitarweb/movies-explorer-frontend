@@ -5,7 +5,8 @@
 }
 
 .aboutProject__title{
-    margin: 0;
+    max-width: 1140px;
+    margin: 0 auto;
     padding: 0 0 23px;
     font-size: 22px;
     font-style: normal;
@@ -16,8 +17,9 @@
 }
 
 .aboutProject__plan{
+    max-width: 1140px;
     display: flex;
-    margin-top: 67px;
+    margin: 67px auto 0;
 }
 
 .aboutProject__box:nth-child(2){
@@ -42,9 +44,11 @@
 }
 
 .aboutProject__progress{
+    max-width: 1140px;
     display: grid;
     grid-template-columns: 228px 1fr;
     justify-items: center;
+    margin: 0 auto;
     padding-top: 110px;
 }
 

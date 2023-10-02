@@ -6,6 +6,7 @@
 .searchForm__form {
   max-width: 1140px;
   display: flex;
+  margin: 0 auto;
   padding: 19px;
   background-color: #2F2F2F;
   border-radius: 9px;

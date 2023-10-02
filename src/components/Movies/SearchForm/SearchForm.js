@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import useValidation from "../../../utils/Validation";
 
-function SearchForm({ setSearchKeyword, setFilter }) {
+function SearchForm({ searchKeyword, setSearchKeyword, isFilter, setFilter }) {
 
   const {inputValue, errors, isValid, handleChange, resetValidation} = useValidation();
 
@@ -11,7 +11,7 @@ function SearchForm({ setSearchKeyword, setFilter }) {
     setSearchKeyword(inputValue.movietitle);
   }
 
-  useEffect(() => {resetValidation()}, [resetValidation]);
+  useEffect(() => {resetValidation({movietitle: searchKeyword})}, [searchKeyword]);
 
   return (
     <section className='searchForm'>
@@ -28,7 +28,7 @@ function SearchForm({ setSearchKeyword, setFilter }) {
           />
           <button className={`searchForm__button ${isValid ? '' : 'searchForm__button_disable'}`} type='submit' disabled={!isValid}>Найти</button>
         </label>
-        <FilterCheckbox setFilter={setFilter} />
+        <FilterCheckbox isFilter={isFilter} setFilter={setFilter} />
       </form>
       <span className='searchForm__error'>{errors.movietitle || ''}</span>
     </section>

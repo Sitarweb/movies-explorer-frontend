@@ -1,17 +1,17 @@
 import { useState, useEffect } from 'react';
 import SearchForm from './SearchForm/SearchForm';
 import MoviesCardList from './MoviesCardList/MoviesCardList';
-import { useWindowSize } from '../../utils/Utils';
+import useWindowWidth from '../../utils/width'; 
 import { NOTFOUND_ERROR, TABLET_WIDTH, MOBILE_WIDTH, DESKTOP_AMOUNT, TABLET_AMOUNT, MOBILE_AMOUNT, SHORTS_DURATION } from '../../constants/constants';
 
 function Movies({ movies, savedMovies, onSaveMovie, onDeleteMovie }) {
-
+  const [isLoading, setIsLoading] = useState(false);
   const [searchKeyword, setSearchKeyword] = useState('');
   const [isFilter, setFilter] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
   const [filteredMovies, setFilteredMovies] = useState([]);
   const [initialRenderMovies, setInitialRenderMovies] = useState({amountToShow: 0, amountToAdd: 0});
-  const { width } = useWindowSize();
+  const { width } = useWindowWidth();
 
   useEffect(() => {
     handleSearchMovies();
@@ -19,26 +19,47 @@ function Movies({ movies, savedMovies, onSaveMovie, onDeleteMovie }) {
   }, [searchKeyword, isFilter]);
 
   useEffect(() => {
-    if( width > TABLET_WIDTH) {
+    if( width >= TABLET_WIDTH) {
       setInitialRenderMovies(DESKTOP_AMOUNT);
-    } else if(width >= MOBILE_WIDTH) {
+    } else if(width < MOBILE_WIDTH) {
       setInitialRenderMovies(TABLET_AMOUNT);
     } else {
       setInitialRenderMovies(MOBILE_AMOUNT);
     }
   }, [width]);
 
+  useEffect(() => {
+    if (localStorage.getItem('previousRequest')) {
+      setSearchKeyword(JSON.parse(localStorage.getItem('previousRequest')));
+    }
+    if (localStorage.getItem('previouslyRequestedMovies')) {
+      setSearchResults(JSON.parse(localStorage.getItem('previouslyRequestedMovies')));
+    }
+    if (localStorage.getItem('selectedCheckboxState')) {
+      setFilter(JSON.parse(localStorage.getItem('selectedCheckboxState')));
+    }
+  }, []);
+
   function handleSearchMovies() { // Ищет фильмы
+    setIsLoading(true);
     setSearchResults([]);
-    if (searchKeyword.length > 0) {
-      const searchResults = handleSearch(movies, searchKeyword);
-      if (searchResults.length === 0) {
-        console.log(NOTFOUND_ERROR);
-      } else {
-        setSearchResults(searchResults);
+    try {
+      if (searchKeyword.length > 0) {
+        const searchResults = handleSearch(movies, searchKeyword);
+        if (searchResults.length === 0) {
+          console.log(NOTFOUND_ERROR);
+        } else {
+          setSearchResults(searchResults);
+          localStorage.setItem('previousRequest', JSON.stringify(searchKeyword));
+          localStorage.setItem('previouslyRequestedMovies', JSON.stringify(searchResults));
+          localStorage.setItem('selectedCheckboxState', JSON.stringify(isFilter));
+        }
       }
-    } else {
-      setSearchResults(movies);
+    } catch(err) {
+      console.log(err);
+    }
+    finally{
+      setIsLoading(false);
     }
   }
 
@@ -61,10 +82,13 @@ function Movies({ movies, savedMovies, onSaveMovie, onDeleteMovie }) {
   return (
     <main className='movies'>
       <SearchForm
+        searchKeyword={searchKeyword}
         setSearchKeyword={setSearchKeyword}
+        isFilter={isFilter}
         setFilter={setFilter}
       />
       <MoviesCardList
+        isLoading={isLoading}
         moviesData={isFilter ? filteredMovies : searchResults}
         savedMovies={savedMovies}
         onSaveMovie={onSaveMovie}

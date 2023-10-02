@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useLocation} from 'react-router-dom';
+import { Link, NavLink, useLocation} from 'react-router-dom';
 import loggedIn from '../../../images/loggedIn.svg'
 
 function LoggedIn({}) {
@@ -9,8 +9,8 @@ function LoggedIn({}) {
     return (
         <nav className='loggedIn'>
             <div className='loggedIn__movies'>
-                <Link className='loggedIn__movie' to='/movies'>Фильмы</Link>
-                <Link className='loggedIn__movie' to='/saved-movies'>Сохранённые фильмы</Link>
+                <NavLink className='loggedIn__movie' to='/movies'>Фильмы</NavLink>
+                <NavLink className='loggedIn__movie' to='/saved-movies'>Сохранённые фильмы</NavLink>
             </div>
             <Link className='loggedIn__account' to='/profile'>
                 Аккаунт

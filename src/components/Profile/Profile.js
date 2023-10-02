@@ -1,9 +1,9 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import useValidation from "../../utils/Validation";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
 
 function Profile({ signOut, onUpdateUser, isEditing, onEditing, errorMessage }) {
-
+  const [isFormDirty, setFormDirty] = useState(false);
   const {inputValue, errors, isValid, handleChange, resetValidation} = useValidation();
   const currentUser = useContext(CurrentUserContext);
 
@@ -13,6 +13,10 @@ function Profile({ signOut, onUpdateUser, isEditing, onEditing, errorMessage }) 
   }
 
   useEffect(() => {resetValidation({ name: currentUser.name, email: currentUser.email })}, [currentUser]);
+
+  useEffect(() => {
+    setFormDirty((currentUser.name !== inputValue.name) || (currentUser.email !== inputValue.email));
+  }, [inputValue, currentUser, isValid]);
 
   return (
     <main className='main'>
@@ -60,7 +64,7 @@ function Profile({ signOut, onUpdateUser, isEditing, onEditing, errorMessage }) 
               </>
             ) : (
               <>
-                <button className={`profile__submit-button ${isValid ? '' : 'profile__submit-button_disable'} `} type='submit' disabled={!isValid} >
+                <button className={`profile__submit-button ${isValid ? '' : 'profile__submit-button_disable'} ${isFormDirty ? '' : 'profile__submit-button_disable'} `} type='submit' disabled={!isValid || !isFormDirty} >
                   Сохранить
                 </button>
               </>

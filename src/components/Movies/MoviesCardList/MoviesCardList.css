@@ -44,6 +44,10 @@
     display: none;
 }
 
+.moviesCardList__notfound{
+    margin: 0;
+}
+
 @media screen and (max-width: 900px) {
     .moviesCardList{
         padding: 0 30px 80px;

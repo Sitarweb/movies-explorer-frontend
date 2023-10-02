@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate, useLocation, Navigate } from 'react-router-dom';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
@@ -20,6 +20,7 @@ import { REGISTRATION_ERROR, AUTHORIZATION_ERROR, EMAIL_ERROR, UPDATE_PROFILE_ER
 
 function App() {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   // Переменные внутреннего состояния
   const [isMenuPopupOpen, setMenuPopupOpen] = useState(false);
@@ -112,7 +113,6 @@ function App() {
   }, [navigate]);
 
   function handleRegister({ name, email, password }) { // Регестрирует пользователя
-    setPreloaderPopupOpen(true);
     auth
       .signup({ name, email, password })
       .then((response) => {
@@ -127,12 +127,10 @@ function App() {
       .catch(() => {
         setErrorMessage(REGISTRATION_ERROR);
         setRegistered(false);
-      })
-      .finally(() => setPreloaderPopupOpen(false));
+      });
   }
 
   function handleLogin({ email, password }) { // Позволяет пользователю войти в аккаунт
-    setPreloaderPopupOpen(true);
     auth
       .signin({ email, password })
       .then((response) => {
@@ -144,8 +142,7 @@ function App() {
       .catch(() => {
         setErrorMessage(AUTHORIZATION_ERROR);
         setRegistered(false);
-      })
-      .finally(() => setPreloaderPopupOpen(false));
+      });
   }
 
   function handleUpdateUser(data) { // Обновляет данные о пользователе
@@ -193,7 +190,7 @@ function App() {
   }
 
   return (
-    <div className="app">
+    <div className={`app ${pathname === '/movies' || pathname === '/saved-movies' || pathname === '/profile' ? 'app_movies' : ''}`}>
       <CurrentUserContext.Provider value={currentUser}>
         <Routes>
           <Route
@@ -277,28 +274,50 @@ function App() {
               </>
             }
           />
-          <Route
-            path="/signup"
-            element={
-              <>
-                <Register
-                  onRegister={handleRegister}
-                  errorMessage={errorMessage}
-                />
-              </>
-            }
-          />
-          <Route
-            path="/signin"
-            element={
-              <>
-                <Login
-                  onLogin={handleLogin}
-                  errorMessage={errorMessage}
-                />
-              </>
-            }
-          />
+          {
+            !loggedIn ? (
+              <Route
+                path="/signup"
+                element={
+                  <>
+                    <Register
+                      onRegister={handleRegister}
+                      errorMessage={errorMessage}
+                    />
+                  </>
+                }
+              />
+            ) : (
+              <Route
+                path='/signup'
+                element={
+                  <Navigate to='/' />
+                }
+              />
+            )
+          }
+          {
+            !loggedIn ? (
+              <Route
+                path="/signin"
+                element={
+                  <>
+                    <Login
+                      onLogin={handleLogin}
+                      errorMessage={errorMessage}
+                    />
+                  </>
+                }
+              />
+            ) : (
+              <Route
+                path='/signin'
+                element={
+                  <Navigate to='/' />
+                }
+              />
+            )
+          }
           <Route
             path="*"
             element={

@@ -5,7 +5,8 @@
 }
 
 .aboutMe__subtitle{
-    margin: 0;
+    max-width: 1140px;
+    margin: 0 auto;
     padding: 0 0 23px;
     font-size: 22px;
     font-style: normal;
@@ -16,9 +17,10 @@
 }
 
 .aboutMe__biography{
+    max-width: 1140px;
     display: flex;
     justify-content: space-between;
-    margin-top: 66px;
+    margin: 66px auto 0;
 }
 
 .aboutMe__bio{

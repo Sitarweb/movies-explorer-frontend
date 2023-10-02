@@ -4,7 +4,7 @@ import MoviesCardList from '../Movies/MoviesCardList/MoviesCardList';
 import { NOTFOUND_ERROR, SHORTS_DURATION } from '../../constants/constants';
 
 function SavedMovies({ savedMovies, onDeleteMovie }) {
-
+  const [isLoading, setIsLoading] = useState(false);
   const [searchKeyword, setSearchKeyword] = useState('');
   const [isFilter, setFilter] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
@@ -16,16 +16,22 @@ function SavedMovies({ savedMovies, onDeleteMovie }) {
   }, [searchKeyword, isFilter]);
 
   function handleSearchMovies() { // Ищет фильмы
+    setIsLoading(true);
     setSearchResults([]);
-    if (searchKeyword.length > 0) {
-      const searchResults = handleSearch(savedMovies, searchKeyword);
-      if (searchResults.length === 0) {
-        console.log(NOTFOUND_ERROR);
-      } else {
-        setSearchResults(searchResults);
+    try {
+      if (searchKeyword.length > 0) {
+        const searchResults = handleSearch(savedMovies, searchKeyword);
+        if (searchResults.length === 0) {
+          console.log(NOTFOUND_ERROR);
+        } else {
+          setSearchResults(searchResults);
+        }
       }
-    } else {
-      setSearchResults(savedMovies);
+    } catch (err) {
+      console.log(err);
+    }
+    finally{
+      setIsLoading(false);
     }
   }
 
@@ -44,10 +50,13 @@ function SavedMovies({ savedMovies, onDeleteMovie }) {
   return (
     <main className='savedMovies'>
       <SearchForm
+        searchKeyword={searchKeyword}
         setSearchKeyword={setSearchKeyword}
+        isFilter={isFilter}
         setFilter={setFilter}
       />
       <MoviesCardList
+        isLoading={isLoading}
         moviesData={isFilter ? filteredMovies : searchResults}
         savedMovies={savedMovies}
         onDeleteMovie={onDeleteMovie}
