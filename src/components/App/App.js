@@ -21,6 +21,7 @@ import { REGISTRATION_ERROR, AUTHORIZATION_ERROR, EMAIL_ERROR, UPDATE_PROFILE_ER
 function App() {
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const location = window.location.pathname;
 
   // Переменные внутреннего состояния
   const [isMenuPopupOpen, setMenuPopupOpen] = useState(false);
@@ -69,13 +70,15 @@ function App() {
   useEffect(() => {
     if (localStorage.getItem('movies')) setMovies(JSON.parse(localStorage.getItem('movies')));
     else {
+      setPreloaderPopupOpen(true);
       moviesApi
         .getAllMovies()
         .then((allMovies) => {
           localStorage.setItem('movies', JSON.stringify(allMovies));
           setMovies(allMovies);
         })
-        .catch(console.error);
+        .catch(console.error)
+        .finally(() => setPreloaderPopupOpen(false));
     }
   }, []);
 
@@ -94,25 +97,27 @@ function App() {
 
   useEffect(() => {
     const jwt = localStorage.getItem('jwt');
-    if (jwt) {
-      auth
-        .getCurrentUser(jwt)
-        .then((response) => {
-          setLoggedIn(true);
-          setCurrentUser({
-            name: response.name,
-            email: response.email
-          });
-        })
-        .catch(console.error);
-    }
-  }, [navigate]);
+    if (!jwt) return;
+    setLoggedIn(true);
+    navigate(location);
+    auth
+      .getCurrentUser(jwt)
+      .then((response) => {
+        setLoggedIn(true);
+        setCurrentUser({
+          name: response.name,
+          email: response.email
+        });
+      })
+      .catch(console.error);
+  }, [navigate, location]);
 
   useEffect(() => {
     setErrorMessage('');
   }, [navigate]);
 
   function handleRegister({ name, email, password }) { // Регестрирует пользователя
+    setPreloaderPopupOpen(true);
     auth
       .signup({ name, email, password })
       .then((response) => {
@@ -127,10 +132,12 @@ function App() {
       .catch(() => {
         setErrorMessage(REGISTRATION_ERROR);
         setRegistered(false);
-      });
+      })
+      .finally(() => setPreloaderPopupOpen(false));
   }
 
   function handleLogin({ email, password }) { // Позволяет пользователю войти в аккаунт
+    setPreloaderPopupOpen(true);
     auth
       .signin({ email, password })
       .then((response) => {
@@ -142,7 +149,8 @@ function App() {
       .catch(() => {
         setErrorMessage(AUTHORIZATION_ERROR);
         setRegistered(false);
-      });
+      })
+      .finally(() => setPreloaderPopupOpen(false));
   }
 
   function handleUpdateUser(data) { // Обновляет данные о пользователе
@@ -161,32 +169,28 @@ function App() {
   }
 
   function handleSignOut() { // Позволяет пользователю выйти из аккаунта
-    localStorage.clear()
+    localStorage.clear();
     setLoggedIn(false);
     setCurrentUser({});
     navigate('/');
   }
 
   function handleSaveMovie(data) { // Добавляет фильм в сохраненные
-    setPreloaderPopupOpen(true);
     mainApi
       .postNewMovie(data)
       .then((savedMovie) => {
         setSavedMovies([savedMovie, ...savedMovies]);
       })
-      .catch(console.error)
-      .finally(() => setPreloaderPopupOpen(false));
+      .catch(console.error);
   }
 
   function handleDeleteMovie(movieId) { // Удаляет фильм из сохраненных
-    setPreloaderPopupOpen(true);
     mainApi
       .deleteMovie(movieId)
       .then(() => {
         setSavedMovies((state) => state.filter((c) => c._id !== movieId));
       })
-      .catch(console.error)
-      .finally(() => setPreloaderPopupOpen(false));
+      .catch(console.error);
   }
 
   return (

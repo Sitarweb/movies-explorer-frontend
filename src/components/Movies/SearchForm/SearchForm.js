@@ -1,17 +1,29 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
-import useValidation from "../../../utils/Validation";
 
 function SearchForm({ searchKeyword, setSearchKeyword, isFilter, setFilter }) {
+  const [searchQuery, setSearchQuery] = useState('');
+  const [isWarningVisible, setWarningVisible] = useState(false);
+  const [isValid, setIsValid] = useState(false);
 
-  const {inputValue, errors, isValid, handleChange, resetValidation} = useValidation();
+  function handleChange(evt) {
+    setWarningVisible(false);
+    setIsValid(false);
+    setSearchQuery(evt.target.value);
+  }
 
   function handleSubmit(evt) {
     evt.preventDefault();
-    setSearchKeyword(inputValue.movietitle);
+    if (searchQuery.trim() === '') {
+      setWarningVisible(true);
+      setIsValid(true);
+      return;
+    }
+
+    setSearchKeyword(searchQuery);
   }
 
-  useEffect(() => {resetValidation({movietitle: searchKeyword})}, [searchKeyword]);
+  useEffect(() => {setSearchQuery(searchKeyword)}, [searchKeyword]);
 
   return (
     <section className='searchForm'>
@@ -22,15 +34,16 @@ function SearchForm({ searchKeyword, setSearchKeyword, isFilter, setFilter }) {
             type='text'
             name='movietitle'
             placeholder='Фильм'
-            value={inputValue.movietitle || ''}
+            value={searchQuery}
+            minLength='1'
             required
             onChange={handleChange}
           />
-          <button className={`searchForm__button ${isValid ? '' : 'searchForm__button_disable'}`} type='submit' disabled={!isValid}>Найти</button>
+          <button className={`searchForm__button ${isValid ? 'searchForm__button_disable' : ''}`} type='submit' disabled={isValid}>Найти</button>
         </label>
         <FilterCheckbox isFilter={isFilter} setFilter={setFilter} />
       </form>
-      <span className='searchForm__error'>{errors.movietitle || ''}</span>
+      <span className='searchForm__error'>{isWarningVisible && 'Нужно ввести ключевое слово'}</span>
     </section>
   );
 }

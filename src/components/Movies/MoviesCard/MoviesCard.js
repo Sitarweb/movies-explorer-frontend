@@ -7,6 +7,7 @@ function MoviesCard({ id, movieData, savedMovies, onSaveMovie, onDeleteMovie }) 
   const { pathname } = useLocation();
   const isMoviePage = pathname === '/movies';
   const isFilmSaved = savedMovies.some(savedMovie => savedMovie.nameEN === movieData.nameEN);
+  
   if (isMoviePage && isFilmSaved) {
     const savedFilm = savedMovies.find(savedMovie => savedMovie.nameEN === movieData.nameEN);
     id = savedFilm._id

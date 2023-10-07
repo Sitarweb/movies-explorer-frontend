@@ -1,21 +1,24 @@
 import { useState, useEffect } from 'react';
 import SearchForm from './SearchForm/SearchForm';
 import MoviesCardList from './MoviesCardList/MoviesCardList';
-import useWindowWidth from '../../utils/width'; 
+import useWindowSize from '../../utils/ScreenSizeWidth'; 
 import { NOTFOUND_ERROR, TABLET_WIDTH, MOBILE_WIDTH, DESKTOP_AMOUNT, TABLET_AMOUNT, MOBILE_AMOUNT, SHORTS_DURATION } from '../../constants/constants';
 
 function Movies({ movies, savedMovies, onSaveMovie, onDeleteMovie }) {
-  const [isLoading, setIsLoading] = useState(false);
+  const [notFoundMessage, setNotFoundMessage] = useState(false);
   const [searchKeyword, setSearchKeyword] = useState('');
   const [isFilter, setFilter] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
   const [filteredMovies, setFilteredMovies] = useState([]);
   const [initialRenderMovies, setInitialRenderMovies] = useState({amountToShow: 0, amountToAdd: 0});
-  const { width } = useWindowWidth();
+  const { width } = useWindowSize();
+
+  useEffect(() => {
+    setFilteredMovies(handleFilter(searchResults));
+  }, [searchResults]);
 
   useEffect(() => {
     handleSearchMovies();
-    setFilteredMovies(handleFilter(searchResults));
   }, [searchKeyword, isFilter]);
 
   useEffect(() => {
@@ -41,15 +44,16 @@ function Movies({ movies, savedMovies, onSaveMovie, onDeleteMovie }) {
   }, []);
 
   function handleSearchMovies() { // Ищет фильмы
-    setIsLoading(true);
     setSearchResults([]);
     try {
       if (searchKeyword.length > 0) {
         const searchResults = handleSearch(movies, searchKeyword);
         if (searchResults.length === 0) {
           console.log(NOTFOUND_ERROR);
+          setNotFoundMessage(true);
         } else {
           setSearchResults(searchResults);
+          setNotFoundMessage(false);
           localStorage.setItem('previousRequest', JSON.stringify(searchKeyword));
           localStorage.setItem('previouslyRequestedMovies', JSON.stringify(searchResults));
           localStorage.setItem('selectedCheckboxState', JSON.stringify(isFilter));
@@ -57,9 +61,6 @@ function Movies({ movies, savedMovies, onSaveMovie, onDeleteMovie }) {
       }
     } catch(err) {
       console.log(err);
-    }
-    finally{
-      setIsLoading(false);
     }
   }
 
@@ -79,6 +80,7 @@ function Movies({ movies, savedMovies, onSaveMovie, onDeleteMovie }) {
     setInitialRenderMovies({amountToShow: initialRenderMovies.amountToShow + initialRenderMovies.amountToAdd, amountToAdd: initialRenderMovies.amountToAdd});
   }
 
+
   return (
     <main className='movies'>
       <SearchForm
@@ -88,7 +90,7 @@ function Movies({ movies, savedMovies, onSaveMovie, onDeleteMovie }) {
         setFilter={setFilter}
       />
       <MoviesCardList
-        isLoading={isLoading}
+        notFoundMessage={notFoundMessage}
         moviesData={isFilter ? filteredMovies : searchResults}
         savedMovies={savedMovies}
         onSaveMovie={onSaveMovie}

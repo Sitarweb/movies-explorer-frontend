@@ -2,13 +2,13 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
-function MoviesCardList({ isLoading, moviesData, savedMovies, onSaveMovie, onDeleteMovie, amountToShow, onClick }) {
+function MoviesCardList({ notFoundMessage, moviesData, savedMovies, onSaveMovie, onDeleteMovie, amountToShow, onClick }) {
 
   const { pathname } = useLocation();
 
   return (
     <section className={`moviesCardList ${pathname === '/saved-movies' ? 'moviesCardList-saved' : ''}`}>
-      { !isLoading &&
+      {
         <ul className='moviesCardList__ul'>
           {
             moviesData?.slice(0, amountToShow).map((movieData) => (
@@ -25,7 +25,7 @@ function MoviesCardList({ isLoading, moviesData, savedMovies, onSaveMovie, onDel
         </ul>
       }
       {
-        moviesData[0] === false ? <p className='moviesCardList__notfound'>Ничего не найдено</p> : <></>
+        notFoundMessage ? <p className='moviesCardList__notfound'>Ничего не найдено</p> : <></>
       }
       {
         moviesData.length > amountToShow && (

@@ -4,34 +4,35 @@ import MoviesCardList from '../Movies/MoviesCardList/MoviesCardList';
 import { NOTFOUND_ERROR, SHORTS_DURATION } from '../../constants/constants';
 
 function SavedMovies({ savedMovies, onDeleteMovie }) {
-  const [isLoading, setIsLoading] = useState(false);
+  const [notFoundMessage, setNotFoundMessage] = useState(false);
   const [searchKeyword, setSearchKeyword] = useState('');
   const [isFilter, setFilter] = useState(false);
-  const [searchResults, setSearchResults] = useState([]);
+  const [searchResults, setSearchResults] = useState(savedMovies);
   const [filteredMovies, setFilteredMovies] = useState([]);
 
   useEffect(() => {
-    handleSearchMovies();
     setFilteredMovies(handleFilter(searchResults));
+  }, [searchResults]);
+
+  useEffect(() => {
+    handleSearchMovies();
   }, [searchKeyword, isFilter]);
 
   function handleSearchMovies() { // Ищет фильмы
-    setIsLoading(true);
     setSearchResults([]);
     try {
       if (searchKeyword.length > 0) {
         const searchResults = handleSearch(savedMovies, searchKeyword);
         if (searchResults.length === 0) {
           console.log(NOTFOUND_ERROR);
+          setNotFoundMessage(true);
         } else {
           setSearchResults(searchResults);
+          setNotFoundMessage(false);
         }
       }
     } catch (err) {
       console.log(err);
-    }
-    finally{
-      setIsLoading(false);
     }
   }
 
@@ -56,8 +57,8 @@ function SavedMovies({ savedMovies, onDeleteMovie }) {
         setFilter={setFilter}
       />
       <MoviesCardList
-        isLoading={isLoading}
-        moviesData={isFilter ? filteredMovies : searchResults}
+        notFoundMessage={notFoundMessage}
+        moviesData={!searchKeyword ? isFilter ? filteredMovies : savedMovies : isFilter ? filteredMovies : searchResults}
         savedMovies={savedMovies}
         onDeleteMovie={onDeleteMovie}
       />

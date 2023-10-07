@@ -7,7 +7,7 @@ function Header({ loggedIn, onMenuPopup }) {
   const { pathname } = useLocation();
 
   return (
-    <header className={`header ${pathname === '/' ? '' : 'header__main'}`}>
+    <header className={`header ${pathname === '/' ? '' : 'header_main'}`}>
       <Link className='header__link-logo' to='/' />
       {
         loggedIn ? (
