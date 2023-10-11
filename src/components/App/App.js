@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Routes, Route, useNavigate, useLocation, Navigate } from 'react-router-dom';
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
@@ -12,7 +12,6 @@ import NotFound from '../NotFound/NotFound';
 import SideBar from '../SideBar/SideBar';
 import auth from '../../utils/Auth';
 import mainApi from '../../utils/MainApi';
-import moviesApi from '../../utils/MoviesApi';
 import Preloader from '../Preloader/Preloader';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext.js';
@@ -30,7 +29,6 @@ function App() {
   const [registered, setRegistered] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
-  const [movies, setMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -66,21 +64,6 @@ function App() {
   const handleSaveClick = () => {
     setIsEditing(false);
   };
-
-  useEffect(() => {
-    if (localStorage.getItem('movies')) setMovies(JSON.parse(localStorage.getItem('movies')));
-    else {
-      setPreloaderPopupOpen(true);
-      moviesApi
-        .getAllMovies()
-        .then((allMovies) => {
-          localStorage.setItem('movies', JSON.stringify(allMovies));
-          setMovies(allMovies);
-        })
-        .catch(console.error)
-        .finally(() => setPreloaderPopupOpen(false));
-    }
-  }, []);
 
   useEffect(() => {
     mainApi.getJwt();
@@ -198,7 +181,7 @@ function App() {
       <CurrentUserContext.Provider value={currentUser}>
         <Routes>
           <Route
-            exact
+            
             path="/"
             element={
               <>
@@ -223,10 +206,10 @@ function App() {
                 <ProtectedRoute
                   loggedIn={loggedIn}
                   component={Movies}
-                    movies={movies}
                     savedMovies={savedMovies}
                     onSaveMovie={handleSaveMovie}
                     onDeleteMovie={handleDeleteMovie}
+                    setPreloaderPopupOpen={setPreloaderPopupOpen}
                 />
                 <ProtectedRoute
                   loggedIn={loggedIn}
@@ -278,50 +261,32 @@ function App() {
               </>
             }
           />
-          {
-            !loggedIn ? (
-              <Route
-                path="/signup"
-                element={
-                  <>
-                    <Register
-                      onRegister={handleRegister}
-                      errorMessage={errorMessage}
-                    />
-                  </>
-                }
-              />
-            ) : (
-              <Route
-                path='/signup'
-                element={
-                  <Navigate to='/' />
-                }
-              />
-            )
-          }
-          {
-            !loggedIn ? (
-              <Route
-                path="/signin"
-                element={
-                  <>
-                    <Login
-                      onLogin={handleLogin}
-                      errorMessage={errorMessage}
-                    />
-                  </>
-                }
-              />
-            ) : (
-              <Route
-                path='/signin'
-                element={
-                  <Navigate to='/' />
-                }
-              />
-            )
-          }
+          <Route
+            path="/signup"
+            element={
+              <>
+                <ProtectedRoute
+                  loggedIn={!loggedIn}
+                  component={Register}
+                    onRegister={handleRegister}
+                    errorMessage={errorMessage}
+                />
+              </>
+            }
+          />
+          <Route
+            path="/signin"
+            element={
+              <>
+                <ProtectedRoute
+                  loggedIn={!loggedIn}
+                  component={Login}
+                    onLogin={handleLogin}
+                    errorMessage={errorMessage}
+                />
+              </>
+            }
+          />
           <Route
             path="*"
             element={

@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import moviesApi from '../../../utils/MoviesApi';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
-function SearchForm({ searchKeyword, setSearchKeyword, isFilter, setFilter }) {
+function SearchForm({ searchKeyword, setSearchKeyword, isFilter, setFilter, movies, setMovies, setPreloaderPopupOpen }) {
+  const { pathname } = useLocation();
   const [searchQuery, setSearchQuery] = useState('');
   const [isWarningVisible, setWarningVisible] = useState(false);
   const [isValid, setIsValid] = useState(false);
@@ -12,8 +15,22 @@ function SearchForm({ searchKeyword, setSearchKeyword, isFilter, setFilter }) {
     setSearchQuery(evt.target.value);
   }
 
-  function handleSubmit(evt) {
+  async function handleSubmit(evt) {
     evt.preventDefault();
+    if (pathname === '/movies'){
+      if (!movies.length) {
+        setPreloaderPopupOpen(true);
+        await moviesApi
+          .getAllMovies()
+          .then((allMovies) => {
+            localStorage.setItem('movies', JSON.stringify(allMovies));
+            setMovies(allMovies);
+          })
+          .catch(console.error)
+          .finally(() => setPreloaderPopupOpen(false));
+      }
+    }
+
     if (searchQuery.trim() === '') {
       setWarningVisible(true);
       setIsValid(true);

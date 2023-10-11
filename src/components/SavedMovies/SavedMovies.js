@@ -7,7 +7,7 @@ function SavedMovies({ savedMovies, onDeleteMovie }) {
   const [notFoundMessage, setNotFoundMessage] = useState(false);
   const [searchKeyword, setSearchKeyword] = useState('');
   const [isFilter, setFilter] = useState(false);
-  const [searchResults, setSearchResults] = useState(savedMovies);
+  const [searchResults, setSearchResults] = useState([]);
   const [filteredMovies, setFilteredMovies] = useState([]);
 
   useEffect(() => {
@@ -16,7 +16,7 @@ function SavedMovies({ savedMovies, onDeleteMovie }) {
 
   useEffect(() => {
     handleSearchMovies();
-  }, [searchKeyword, isFilter]);
+  }, [searchKeyword, isFilter, savedMovies]);
 
   function handleSearchMovies() { // Ищет фильмы
     setSearchResults([]);

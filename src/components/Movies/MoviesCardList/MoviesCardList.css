@@ -1,9 +1,13 @@
 .moviesCardList{
+    max-width: 1140px;
+    min-height: 310.67px;
+    margin: 0 auto;
     padding: 0 70px 80px;
     background-color: #202020;
 }
 
 .moviesCardList-saved{
+    min-height: 150.67px;
     padding-bottom: 240px;
 }
 

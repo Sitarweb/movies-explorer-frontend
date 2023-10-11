@@ -4,12 +4,13 @@ import MoviesCardList from './MoviesCardList/MoviesCardList';
 import useWindowSize from '../../utils/ScreenSizeWidth'; 
 import { NOTFOUND_ERROR, TABLET_WIDTH, MOBILE_WIDTH, DESKTOP_AMOUNT, TABLET_AMOUNT, MOBILE_AMOUNT, SHORTS_DURATION } from '../../constants/constants';
 
-function Movies({ movies, savedMovies, onSaveMovie, onDeleteMovie }) {
+function Movies({ savedMovies, onSaveMovie, onDeleteMovie, setPreloaderPopupOpen }) {
   const [notFoundMessage, setNotFoundMessage] = useState(false);
   const [searchKeyword, setSearchKeyword] = useState('');
   const [isFilter, setFilter] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
   const [filteredMovies, setFilteredMovies] = useState([]);
+  const [movies, setMovies] = useState(JSON.parse(localStorage.getItem('movies')) || []);
   const [initialRenderMovies, setInitialRenderMovies] = useState({amountToShow: 0, amountToAdd: 0});
   const { width } = useWindowSize();
 
@@ -22,11 +23,11 @@ function Movies({ movies, savedMovies, onSaveMovie, onDeleteMovie }) {
   }, [searchKeyword, isFilter]);
 
   useEffect(() => {
-    if( width >= TABLET_WIDTH) {
+    if( width > TABLET_WIDTH) {
       setInitialRenderMovies(DESKTOP_AMOUNT);
-    } else if(width < MOBILE_WIDTH) {
+    } else if(width >= MOBILE_WIDTH) {
       setInitialRenderMovies(TABLET_AMOUNT);
-    } else {
+    } else if(width < MOBILE_WIDTH) {
       setInitialRenderMovies(MOBILE_AMOUNT);
     }
   }, [width]);
@@ -88,6 +89,9 @@ function Movies({ movies, savedMovies, onSaveMovie, onDeleteMovie }) {
         setSearchKeyword={setSearchKeyword}
         isFilter={isFilter}
         setFilter={setFilter}
+        movies={movies}
+        setMovies={setMovies}
+        setPreloaderPopupOpen={setPreloaderPopupOpen}
       />
       <MoviesCardList
         notFoundMessage={notFoundMessage}

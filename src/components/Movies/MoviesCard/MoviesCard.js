@@ -18,7 +18,7 @@ function MoviesCard({ id, movieData, savedMovies, onSaveMovie, onDeleteMovie }) 
   }
 
   function handleDeleteMovie() {
-    onDeleteMovie(id)
+    onDeleteMovie(id);
   }
 
   return (
