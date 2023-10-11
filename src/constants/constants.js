@@ -8,7 +8,7 @@ export { EXTERNAL_URL, OUR_URL }
 const TABLET_WIDTH = 900;
 const MOBILE_WIDTH = 560;
 
-const DESKTOP_AMOUNT = { amountToShow: 12, amountToAdd: 4 }
+const DESKTOP_AMOUNT = { amountToShow: 16, amountToAdd: 4 }
 const TABLET_AMOUNT = { amountToShow: 8, amountToAdd: 2 }
 const MOBILE_AMOUNT = { amountToShow: 5, amountToAdd: 2 }
 
