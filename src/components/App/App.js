@@ -181,7 +181,7 @@ function App() {
       <CurrentUserContext.Provider value={currentUser}>
         <Routes>
           <Route
-            
+            exact
             path="/"
             element={
               <>

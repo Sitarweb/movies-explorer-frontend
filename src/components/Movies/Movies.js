@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import SearchForm from './SearchForm/SearchForm';
 import MoviesCardList from './MoviesCardList/MoviesCardList';
 import useWindowSize from '../../utils/ScreenSizeWidth'; 
-import { NOTFOUND_ERROR, TABLET_WIDTH, MOBILE_WIDTH, DESKTOP_AMOUNT, TABLET_AMOUNT, MOBILE_AMOUNT, SHORTS_DURATION } from '../../constants/constants';
+import { NOTFOUND_ERROR, DESKTOP_WIDTH, TABLET_WIDTH, MIDDLE_WIDTH, MOBILE_WIDTH, DESKTOP_AMOUNT, TABLET_AMOUNT, MIDDLE_AMOUNT, INBETWEEN_AMOUNT, MOBILE_AMOUNT, SHORTS_DURATION } from '../../constants/constants';
 
 function Movies({ savedMovies, onSaveMovie, onDeleteMovie, setPreloaderPopupOpen }) {
   const [notFoundMessage, setNotFoundMessage] = useState(false);
@@ -23,11 +23,15 @@ function Movies({ savedMovies, onSaveMovie, onDeleteMovie, setPreloaderPopupOpen
   }, [searchKeyword, isFilter]);
 
   useEffect(() => {
-    if( width > TABLET_WIDTH) {
+    if( width >= DESKTOP_WIDTH) {
       setInitialRenderMovies(DESKTOP_AMOUNT);
-    } else if(width >= MOBILE_WIDTH) {
+    } else if(width >= TABLET_WIDTH) {
       setInitialRenderMovies(TABLET_AMOUNT);
-    } else if(width < MOBILE_WIDTH) {
+    } else if(width >= MIDDLE_WIDTH) {
+      setInitialRenderMovies(MIDDLE_AMOUNT);
+    } else if(width >= MOBILE_WIDTH) {
+      setInitialRenderMovies(INBETWEEN_AMOUNT);
+    } else {
       setInitialRenderMovies(MOBILE_AMOUNT);
     }
   }, [width]);
@@ -80,7 +84,6 @@ function Movies({ savedMovies, onSaveMovie, onDeleteMovie, setPreloaderPopupOpen
   function handleMoreClick() {
     setInitialRenderMovies({amountToShow: initialRenderMovies.amountToShow + initialRenderMovies.amountToAdd, amountToAdd: initialRenderMovies.amountToAdd});
   }
-
 
   return (
     <main className='movies'>
