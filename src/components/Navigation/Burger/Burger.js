@@ -1,12 +1,12 @@
 import React from 'react';
 
 
-function Burger({onClick}) {
+function Burger({ onMenuPopup }) {
     return (
         <button 
             className='burger__button'
             type='button' 
-            onClick={onClick} 
+            onClick={onMenuPopup} 
         />
     );
   }

@@ -4,8 +4,8 @@
 }
 
 .portfolio__subtitle{
-    margin: 0 0 50px;
-    width: 250px;
+    max-width: 1140px;
+    margin: 0 auto 50px;
     color: #A0A0A0;
     font-feature-settings: 'clig' off, 'liga' off;
     font-size: 18px;
@@ -15,9 +15,10 @@
 }
 
 .portfolio__links{
+    max-width: 1140px;
     display: flex;
     flex-direction: column;
-    margin: 0;
+    margin: 0 auto;
     padding: 0;
     list-style-type: none;
 }

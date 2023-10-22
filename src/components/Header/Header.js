@@ -2,16 +2,16 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import Navigation from '../Navigation/Navigation';
 
-function Header({ loggedIn }) {
+function Header({ loggedIn, onMenuPopup }) {
 
   const { pathname } = useLocation();
 
   return (
-    <header className={`header ${pathname === '/' ? '' : 'header__main'}`}>
+    <header className={`header ${pathname === '/' ? '' : 'header_main'}`}>
       <Link className='header__link-logo' to='/' />
       {
         loggedIn ? (
-          <Navigation />
+          <Navigation onMenuPopup={onMenuPopup} />
         ) : (
           <nav className='header__infoblock'>
             <Link className='header__signup' to='/signup'>Регистрация</Link>

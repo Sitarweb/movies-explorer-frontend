@@ -1,26 +1,50 @@
-import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import image from '../../../images/movieCard.jpg';
+import { EXTERNAL_URL } from '../../../constants/constants';
+import duration from '../../../utils/Utils';
 
-function MoviesCard({ movieData }) {
+function MoviesCard({ id, movieData, savedMovies, onSaveMovie, onDeleteMovie }) {
 
   const { pathname } = useLocation();
+  const isMoviePage = pathname === '/movies';
+  const isFilmSaved = savedMovies.some(savedMovie => savedMovie.nameEN === movieData.nameEN);
+  
+  if (isMoviePage && isFilmSaved) {
+    const savedFilm = savedMovies.find(savedMovie => savedMovie.nameEN === movieData.nameEN);
+    id = savedFilm._id
+  }
 
-  const [toggle, setToggle] = useState(false);
-  const handleLike = () => setToggle(!toggle);
+  function handleSaveMovie() {
+    onSaveMovie(movieData);
+  }
+
+  function handleDeleteMovie() {
+    onDeleteMovie(id);
+  }
 
   return (
     <li className='moviesCard'>
-      <img src={image} alt={`${movieData.nameRU}`} />
+      <a className='moviesCard__trailerLink' href={movieData.trailerLink} target='_blank' rel='noreferrer'>
+        <img className='moviesCard__preview' src={ pathname === '/movies' ? `${EXTERNAL_URL}${movieData.image.url}` : movieData.image} alt={`${movieData.nameRU}`} />
+      </a>
       <div className="moviesCard__text">
         <h2 className="moviesCard__title">{movieData.nameRU}</h2>
-        <button
-          className={`moviesCard__heart-button ${toggle ? 'moviesCard__heart-button-red' : ''} ${pathname === '/saved-movies' ? 'moviesCard__heart-button-saved' : ''}`}
-          type="button"
-          onClick={handleLike}
-        />
+        {
+          isMoviePage ? (
+            <button
+              className={`moviesCard__heart-button ${isFilmSaved ? 'moviesCard__heart-button-red' : ''} `}
+              type="button"
+              onClick={isFilmSaved ? handleDeleteMovie : handleSaveMovie}
+            />
+          ) : (
+            <button
+              className={`moviesCard__heart-button moviesCard__heart-button-saved`}
+              type="button"
+              onClick={handleDeleteMovie}
+            />
+          )
+        }
       </div>
-      <p className='moviesCard__duration'>{movieData.duration}</p>
+      <p className='moviesCard__duration'>{duration(movieData.duration)}</p>
     </li >
   );
 }

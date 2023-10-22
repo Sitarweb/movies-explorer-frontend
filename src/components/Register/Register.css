@@ -1,5 +1,6 @@
 .signup{
-    padding: 70px 0;
+    height: 100vh;
+    padding-top: 70px;
     background-color: #202020;
 }
 
@@ -62,11 +63,29 @@
     border-color: #4285F4;
 }
 
+.signup__inputNotValid{
+    color: #EE3465;
+}
+
 .signup__error{
     height: 12px;
     margin: 6px 0;
+    text-overflow: ellipsis;
     color: #EE3465;
     font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.signup__errorMessage{
+    height: 14px;
+    margin: 94px 0 20px;
+    color: #FF004C;
+    text-align: center;
+    font-size: 11px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
@@ -74,7 +93,6 @@
 
 .signup__submit-button{
     height: 45px;
-    margin-top: 128px;
     border: none;
     background-color: #4285F4;
     border-radius: 3px;
@@ -87,9 +105,14 @@
     transition: opacity .5s linear;
 }
 
-.signup__submit-button:hover{
+.signup__submit-button:not(.signup__submit-button_disable):hover{
     opacity: .8;
     cursor: pointer;
+}
+
+.signup__submit-button_disable{
+    background-color: #F8F8F8;
+    color: #C2C2C2;
 }
 
 .signup__text{
@@ -116,13 +139,13 @@
 
 @media screen and (max-width: 900px){
     .signup{
-        padding: 232px 0;
+        padding-top: 232px;
     }
 }
 
 @media screen and (max-width: 560px){
     .signup{
-        padding: 56px 30px 30px;
+        padding: 56px 30px 0;
     }
 
     .signup__link-logo{
@@ -135,8 +158,11 @@
         text-align: center;
     }
 
+    .signup__errorMessage{
+        margin: 182px 0 20px;
+    }
+
     .signup__submit-button{
-        margin-top: 216px;
         font-size: 12px;
     }
 

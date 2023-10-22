@@ -5,7 +5,8 @@
 }
 
 .techs__subtitle{
-    margin: 0;
+    max-width: 1140px;
+    margin: 0 auto;
     padding: 0 0 23px;
     font-size: 22px;
     font-style: normal;
@@ -37,6 +38,7 @@
 }
 
 .techs__progress{
+    max-width: 1140px;
     display: grid;
     grid-template-columns: repeat(7, 90px);
     gap: 10px;

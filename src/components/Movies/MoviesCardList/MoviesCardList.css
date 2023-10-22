@@ -1,9 +1,13 @@
 .moviesCardList{
-    padding: 0 70px 80px;
+    max-width: 1140px;
+    min-height: 310.67px;
+    margin: 0 auto;
+    padding: 10px 70px 80px;
     background-color: #202020;
 }
 
 .moviesCardList-saved{
+    min-height: 150.67px;
     padding-bottom: 240px;
 }
 
@@ -44,9 +48,13 @@
     display: none;
 }
 
+.moviesCardList__notfound{
+    margin: 0;
+}
+
 @media screen and (max-width: 900px) {
     .moviesCardList{
-        padding: 0 30px 80px;
+        padding: 10px 30px 80px;
         gap: 49px 30px;
     }
 
@@ -65,7 +73,7 @@
 
 @media screen and (max-width: 560px) {
     .moviesCardList{
-        padding: 0 10px 80px;
+        padding: 10px 10px 80px;
         gap: 34px;
     }
 
